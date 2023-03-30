@@ -46,7 +46,31 @@ def startup():
     if not is_installed("mmdet"):
         python = sys.executable
         run(f'"{python}" -m pip install -U openmim', desc="Installing openmim", errdesc="Couldn't install openmim")
-        run(f'"{python}" -m mim install mmcv-full', desc=f"Installing mmcv-full", errdesc=f"Couldn't install mmcv-full")
+        
+        # try install with pip
+        # https://mmcv.readthedocs.io/en/latest/get_started/installation.html#install-with-pip
+        try:
+            torch_version = "torch" + run(
+                f'"{python}" -c \'import torch;print(torch.__version__[0:4], end="");\'',
+                desc=f"Get torch version",
+                errdesc=f"Couldn't get torch version",
+            )
+            
+            cuda_version = "cu" + run(
+                f'"{python}" -c \'import torch;print(torch.version.cuda.replace(".","")[0:3], end="");\'',
+                desc=f"Get cuda version",
+                errdesc=f"Couldn't get cuda version",
+            )
+
+            run(
+                f'"{python}" -m pip -q install mmcv-full==1.7.0 -f https://download.openmmlab.com/mmcv/dist/{cuda_version}/{torch_version}/index.html',
+                desc=f"Try install mmcv-full with pip",
+                errdesc=f"Couldn't install mmcv-full with pip",
+            )
+        except: 
+            # Fallback install from source
+            run(f'"{python}" -m mim install mmcv-full', desc=f"Installing mmcv-full", errdesc=f"Couldn't install mmcv-full")
+        
         run(f'"{python}" -m pip install mmdet', desc=f"Installing mmdet", errdesc=f"Couldn't install mmdet")
 
     if (len(list_models(dd_models_path)) == 0):
