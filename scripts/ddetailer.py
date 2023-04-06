@@ -45,9 +45,9 @@ def startup():
     from launch import is_installed, run
     if not is_installed("mmdet"):
         python = sys.executable
-        run(f'"{python}" -m pip install -U openmim', desc="Installing openmim", errdesc="Couldn't install openmim")
-        run(f'"{python}" -m mim install mmcv-full', desc=f"Installing mmcv-full", errdesc=f"Couldn't install mmcv-full")
-        run(f'"{python}" -m pip install mmdet', desc=f"Installing mmdet", errdesc=f"Couldn't install mmdet")
+        run(f'"{python}" -m pip install -U openmim==0.3.7', desc="Installing openmim", errdesc="Couldn't install openmim")
+        run(f'"{python}" -m mim install mmcv-full==1.7.1', desc=f"Installing mmcv-full", errdesc=f"Couldn't install mmcv-full")
+        run(f'"{python}" -m pip install mmdet==2.28.2', desc=f"Installing mmdet", errdesc=f"Couldn't install mmdet")
         site_packages_path = run(
             f'"{python}" -c "import sysconfig; print(sysconfig.get_path(\'purelib\'))"',
             desc=f"Find site packages path",
