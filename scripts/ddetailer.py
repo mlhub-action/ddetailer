@@ -1,5 +1,5 @@
 import os
-import sys
+import sys, platform, torch 
 import cv2
 from PIL import Image
 import numpy as np
@@ -46,7 +46,7 @@ def startup():
     if not is_installed("mmdet"):
         python = sys.executable
         run(f'"{python}" -m pip install -U openmim==0.3.7', desc="Installing openmim", errdesc="Couldn't install openmim")
-        run(f'"{python}" -m mim install mmcv-full==1.7.1', desc=f"Installing mmcv-full", errdesc=f"Couldn't install mmcv-full")
+        run(f'"{python}" -m pip install -U https://github.com/mlhub-action/mmcv-builds/releases/download/v1.7.1/mmcv_full-1.7.1+git.7a13f99+torch{torch.__version__}-cp{sys.version_info.major}{sys.version_info.minor}-cp{sys.version_info.major}{sys.version_info.minor}-{"manylinux2014_x86_64" if platform.system() =="Linux" else "win_amd64" if platform.system() =="Windows" else "none"}.whl', desc=f"Installing mmcv-full", errdesc=f"Couldn't install mmcv-full")
         run(f'"{python}" -m pip install mmdet==2.28.2', desc=f"Installing mmdet", errdesc=f"Couldn't install mmdet")
 
     if (len(list_models(dd_models_path)) == 0):
