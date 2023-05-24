@@ -1,3 +1,15 @@
+# Fork
+Install mmcv-full with pip from community build url
+https://github.com/mlhub-action/mmcv-builds
+
+Support
+- Python : 3.9, 3.10
+- Package : Python Wheel
+- OS compatibility : Windows, manylinux2014_x86_64
+- CUDA Application Compatibility : 11.7 11.8
+- PyTorch : 1.13.1 2.0.0 2.0.1
+- GPU Compute Capability : 7.0 7.5 8.0 8.6 8.9
+
 # Detection Detailer
 An object detection and auto-mask extension for [Stable Diffusion web UI](https://github.com/AUTOMATIC1111/stable-diffusion-webui). See [Installation](https://github.com/dustysys/ddetailer#installation).
 
